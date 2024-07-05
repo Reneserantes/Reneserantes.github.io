@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!isNaN(quantity) && quantity > 0) {
                 var subtotal = quantity * productPrice;
                 totalAmount += subtotal;
-                cartContent += `${quantity} pc/s x ${productPrice} ------ ${product.textContent} ----- Php ${subtotal.toFixed(2)}\n`;
+                cartContent += `${quantity} pc/s x ₱${productPrice.toFixed(2)} ------ ${product.textContent} ----- ₱${subtotal.toFixed(2)}\n`;
             }
         }
 
@@ -102,15 +102,15 @@ document.addEventListener("DOMContentLoaded", function() {
         addToCart(qty6, price6, product6);
 
         carts.textContent = cartContent;
-        total.value = totalAmount.toFixed(2);
+        total.value = `₱${totalAmount.toFixed(2)}`;
     }
 
     function calculateChange() {
-        var totalAmount = parseFloat(total.value);
+        var totalAmount = parseFloat(total.value.replace('₱', ''));
         var cashTendered = parseFloat(cash.value);
         if (!isNaN(totalAmount) && !isNaN(cashTendered)) {
             var changeAmount = cashTendered - totalAmount;
-            change.value = changeAmount >= 0 ? changeAmount.toFixed(2) : 'Insufficient cash';
+            change.value = changeAmount >= 0 ? `₱${changeAmount.toFixed(2)}` : 'Insufficient cash';
         }
     }
 
@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
     cash.addEventListener('input', calculateChange);
 
     purchaseButton.addEventListener('click', function() {
-        var changeAmount = parseFloat(change.value);
+        var changeAmount = parseFloat(change.value.replace('₱', ''));
         if (isNaN(changeAmount) || changeAmount < 0) {
             alert('Insufficient cash. Please enter the correct amount.');
         } else {
@@ -137,5 +137,3 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
-
-
