@@ -49,91 +49,112 @@ function submitComment(){
 submit.addEventListener("click",submitComment)
 */
 
-document.addEventListener("DOMContentLoaded", function() {
-    var product1 = document.getElementById("product1");
-    var qty1 = document.getElementById("qty1");
-    var price1 = document.getElementById("price1");
+var product1 = document.getElementById("product1");
+var qty1 = document.getElementById("qty1");
+var price1 = document.getElementById("price1");
 
-    var product2 = document.getElementById("product2");
-    var qty2 = document.getElementById("qty2");
-    var price2 = document.getElementById("price2");
+var product2 = document.getElementById("product2");
+var qty2 = document.getElementById("qty2");
+var price2 = document.getElementById("price2");
 
-    var product3 = document.getElementById("product3");
-    var qty3 = document.getElementById("qty3");
-    var price3 = document.getElementById("price3");
+var product3 = document.getElementById("product3");
+var qty3 = document.getElementById("qty3");
+var price3 = document.getElementById("price3");
 
-    var product4 = document.getElementById("product4");
-    var qty4 = document.getElementById("qty4");
-    var price4 = document.getElementById("price4");
+var product4 = document.getElementById("product4");
+var qty4 = document.getElementById("qty4");
+var price4 = document.getElementById("price4");
 
-    var product5 = document.getElementById("product5");
-    var qty5 = document.getElementById("qty5");
-    var price5 = document.getElementById("price5");
+var product5 = document.getElementById("product5");
+var qty5 = document.getElementById("qty5");
+var price5 = document.getElementById("price5");
 
-    var product6 = document.getElementById("product6");
-    var qty6 = document.getElementById("qty6");
-    var price6 = document.getElementById("price6");
+var product6 = document.getElementById("product6");
+var qty6 = document.getElementById("qty6");
+var price6 = document.getElementById("price6");
 
-    var carts = document.getElementById("carts");
-    var total = document.getElementById("total");
-    var cash = document.getElementById("cash");
-    var change = document.getElementById("change");
-    var purchaseButton = document.getElementById("purchaseButton");
+var carts = document.getElementById("carts");
+var total = document.getElementById("total");
+var cash = document.getElementById("cash");
+var change = document.getElementById("change");
 
-    function addOrder() {
-        var cartContent = '';
-        var totalAmount = 0;
+function addOrder(){
+    carts.textContent = "";
+    var totalPrice = 0;
 
-        function addToCart(qty, price, product) {
-            var quantity = parseFloat(qty.value);
-            var productPrice = parseFloat(price.textContent);
-            if (!isNaN(quantity) && quantity > 0) {
-                var subtotal = quantity * productPrice;
-                totalAmount += subtotal;
-                cartContent += `${quantity} pc/s x ₱${productPrice.toFixed(2)} ------ ${product.textContent} ----- ₱${subtotal.toFixed(2)}\n`;
-            }
-        }
-
-        addToCart(qty1, price1, product1);
-        addToCart(qty2, price2, product2);
-        addToCart(qty3, price3, product3);
-        addToCart(qty4, price4, product4);
-        addToCart(qty5, price5, product5);
-        addToCart(qty6, price6, product6);
-
-        carts.textContent = cartContent;
-        total.value = `₱${totalAmount.toFixed(2)}`;
+    if (parseFloat(qty1.value) > 0){
+        var order = qty1.value.toString() + ' pc/s x '+ price1.textContent + '------'+ product1.textContent + '------ Php' + (parseFloat(qty1.value) * parseFloat(price1.textContent)) + '\n';
+        carts.textContent += order;
+        var qty = parseFloat(qty1.value);
+        var price = parseFloat(price1.textContent);
+        totalPrice += qty * price;
     }
-
-    function calculateChange() {
-        var totalAmount = parseFloat(total.value.replace('₱', ''));
-        var cashTendered = parseFloat(cash.value);
-        if (!isNaN(totalAmount) && !isNaN(cashTendered)) {
-            var changeAmount = cashTendered - totalAmount;
-            change.value = changeAmount >= 0 ? `₱${changeAmount.toFixed(2)}` : 'Insufficient cash';
-        }
+    if (parseFloat(qty2.value) > 0){
+        var order = qty2.value.toString() + ' pc/s x '+ price2.textContent + '------'+ product2.textContent + '------ Php' + (parseFloat(qty2.value) * parseFloat(price2.textContent)) + '\n';
+        carts.textContent += order;
+        var qty = parseFloat(qty2.value);
+        var price = parseFloat(price2.textContent);
+        totalPrice += qty * price;
     }
+    if (parseFloat(qty3.value) > 0){
+        var order = qty3.value.toString() + ' pc/s x '+ price3.textContent + '------'+ product3.textContent + '------ Php' + (parseFloat(qty3.value) * parseFloat(price3.textContent)) + '\n';
+        carts.textContent += order;
+        var qty = parseFloat(qty3.value);
+        var price = parseFloat(price3.textContent);
+        totalPrice += qty * price;
+    }
+    if (parseFloat(qty4.value) > 0){
+        var order = qty4.value.toString() + ' pc/s x '+ price4.textContent + '------'+ product4.textContent + '------ Php' + (parseFloat(qty4.value) * parseFloat(price4.textContent)) + '\n';
+        carts.textContent += order;
+        var qty = parseFloat(qty4.value);
+        var price = parseFloat(price4.textContent);
+        totalPrice += qty * price;
+    }
+    if (parseFloat(qty5.value) > 0){
+        var order = qty5.value.toString() + ' pc/s x '+ price5.textContent + '------'+ product5.textContent + '------ Php' + (parseFloat(qty5.value) * parseFloat(price5.textContent)) + '\n';
+        carts.textContent += order;
+        var qty = parseFloat(qty5.value);
+        var price = parseFloat(price5.textContent);
+        totalPrice += qty * price;
+    }
+    if (parseFloat(qty6.value) > 0){
+        var order = qty6.value.toString() + ' pc/s x '+ price6.textContent + '------'+ product6.textContent + '------ Php' + (parseFloat(qty6.value) * parseFloat(price6.textContent)) + '\n';
+        carts.textContent += order;
+        var qty = parseFloat(qty6.value);
+        var price = parseFloat(price6.textContent);
+        totalPrice += qty * price;
+    }
+    total.value = '₱ ' + totalPrice.toFixed(2);
+}
 
-    [qty1, qty2, qty3, qty4, qty5, qty6].forEach(function(qtyInput) {
-        qtyInput.addEventListener('input', addOrder);
-    });
+function calculateChange() {
+  let totalPrice = parseFloat(total.value.replace('₱ ', ''));
+  let cashTendered = parseFloat(cash.value);
+  if (!isNaN(totalPrice) && !isNaN(cashTendered) && cashTendered >= totalPrice) {
+      let changeAmount = cashTendered - totalPrice;
+      change.value = '₱ ' + changeAmount.toFixed(2);
+  } else {
+      change.value = '';
+  }
+}
 
-    cash.addEventListener('input', calculateChange);
+function purchaseNow() {
+    let totalPrice = parseFloat(total.value.replace('₱ ', ''));
+    let cashTendered = parseFloat(cash.value);
+    if (cashTendered >= totalPrice) {
+        alert('Thank you for your purchase');
+    } else {
+        alert('kulang bayad');
+    }
+}
 
-    purchaseButton.addEventListener('click', function() {
-        var changeAmount = parseFloat(change.value.replace('₱', ''));
-        if (isNaN(changeAmount) || changeAmount < 0) {
-            alert('Insufficient cash. Please enter the correct amount.');
-        } else {
-            alert('Purchase successful!');
-            // Resetting the form
-            [qty1, qty2, qty3, qty4, qty5, qty6].forEach(function(qtyInput) {
-                qtyInput.value = '';
-            });
-            carts.textContent = '';
-            total.value = '';
-            cash.value = '';
-            change.value = '';
-        }
-    });
-});
+qty1.addEventListener("keyup", addOrder);
+qty2.addEventListener("keyup", addOrder);
+qty3.addEventListener("keyup", addOrder);
+qty4.addEventListener("keyup", addOrder);
+qty5.addEventListener("keyup", addOrder);
+qty6.addEventListener("keyup", addOrder);
+
+cash.addEventListener("keyup", calculateChange);
+
+document.getElementById('purchaseNow').addEventListener('click', purchaseNow);
