@@ -50,66 +50,92 @@ submit.addEventListener("click",submitComment)
 */
 
 document.addEventListener("DOMContentLoaded", function() {
-    const products = [
-        { id: 'product1', price: 28503 },
-        { id: 'product2', price: 500069 },
-        { id: 'product3', price: 60066 },
-        { id: 'product4', price: 69999 },
-        { id: 'product5', price: 59999 },
-        { id: 'product6', price: 69569 }
-    ];
+    var product1 = document.getElementById("product1");
+    var qty1 = document.getElementById("qty1");
+    var price1 = document.getElementById("price1");
 
-    const cartTextArea = document.getElementById('carts');
-    const totalInput = document.getElementById('total');
-    const cashInput = document.getElementById('cash');
-    const changeInput = document.getElementById('change');
-    const purchaseButton = document.getElementById('purchaseNow');
+    var product2 = document.getElementById("product2");
+    var qty2 = document.getElementById("qty2");
+    var price2 = document.getElementById("price2");
 
-    function calculateTotal() {
-        let total = 0;
-        let cartContent = '';
-        products.forEach((product, index) => {
-            const qty = document.getElementById(`qty${index + 1}`).value;
-            if (qty > 0) {
-                const subtotal = qty * product.price;
-                total += subtotal;
-                cartContent += `${product.id}: ${qty} x ${product.price} = ${subtotal}\n`;
+    var product3 = document.getElementById("product3");
+    var qty3 = document.getElementById("qty3");
+    var price3 = document.getElementById("price3");
+
+    var product4 = document.getElementById("product4");
+    var qty4 = document.getElementById("qty4");
+    var price4 = document.getElementById("price4");
+
+    var product5 = document.getElementById("product5");
+    var qty5 = document.getElementById("qty5");
+    var price5 = document.getElementById("price5");
+
+    var product6 = document.getElementById("product6");
+    var qty6 = document.getElementById("qty6");
+    var price6 = document.getElementById("price6");
+
+    var carts = document.getElementById("carts");
+    var total = document.getElementById("total");
+    var cash = document.getElementById("cash");
+    var change = document.getElementById("change");
+    var purchaseButton = document.getElementById("purchaseNow");
+
+    function addOrder() {
+        var cartContent = '';
+        var totalAmount = 0;
+
+        function addToCart(qty, price, product) {
+            var quantity = parseFloat(qty.value);
+            var productPrice = parseFloat(price.textContent);
+            if (!isNaN(quantity) && quantity > 0) {
+                var subtotal = quantity * productPrice;
+                totalAmount += subtotal;
+                cartContent += `${quantity} pc/s x ${productPrice} ------ ${product.textContent} ----- Php ${subtotal.toFixed(2)}\n`;
             }
-        });
-        cartTextArea.value = cartContent;
-        totalInput.value = total;
+        }
+
+        addToCart(qty1, price1, product1);
+        addToCart(qty2, price2, product2);
+        addToCart(qty3, price3, product3);
+        addToCart(qty4, price4, product4);
+        addToCart(qty5, price5, product5);
+        addToCart(qty6, price6, product6);
+
+        carts.textContent = cartContent;
+        total.value = totalAmount.toFixed(2);
     }
 
     function calculateChange() {
-        const total = parseFloat(totalInput.value);
-        const cash = parseFloat(cashInput.value);
-        if (!isNaN(total) && !isNaN(cash)) {
-            const change = cash - total;
-            changeInput.value = change >= 0 ? change : 'Insufficient cash';
+        var totalAmount = parseFloat(total.value);
+        var cashTendered = parseFloat(cash.value);
+        if (!isNaN(totalAmount) && !isNaN(cashTendered)) {
+            var changeAmount = cashTendered - totalAmount;
+            change.value = changeAmount >= 0 ? changeAmount.toFixed(2) : 'Insufficient cash';
         }
     }
 
-    products.forEach((product, index) => {
-        const qtyInput = document.getElementById(`qty${index + 1}`);
-        qtyInput.addEventListener('input', calculateTotal);
+    [qty1, qty2, qty3, qty4, qty5, qty6].forEach(function(qtyInput) {
+        qtyInput.addEventListener('input', addOrder);
     });
 
-    cashInput.addEventListener('input', calculateChange);
+    cash.addEventListener('input', calculateChange);
 
     purchaseButton.addEventListener('click', function() {
-        const change = parseFloat(changeInput.value);
-        if (isNaN(change) || change < 0) {
+        var changeAmount = parseFloat(change.value);
+        if (isNaN(changeAmount) || changeAmount < 0) {
             alert('Insufficient cash. Please enter the correct amount.');
         } else {
             alert('Purchase successful!');
-            products.forEach((product, index) => {
-                document.getElementById(`qty${index + 1}`).value = '';
+            // Resetting the form
+            [qty1, qty2, qty3, qty4, qty5, qty6].forEach(function(qtyInput) {
+                qtyInput.value = '';
             });
-            cartTextArea.value = '';
-            totalInput.value = '';
-            cashInput.value = '';
-            changeInput.value = '';
+            carts.textContent = '';
+            total.value = '';
+            cash.value = '';
+            change.value = '';
         }
     });
 });
+
 
