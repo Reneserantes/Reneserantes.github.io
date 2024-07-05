@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var total = document.getElementById("total");
     var cash = document.getElementById("cash");
     var change = document.getElementById("change");
-    var purchaseButton = document.getElementById("purchaseNow");
+    var purchaseButton = document.getElementById("purchaseButton");
 
     function addOrder() {
         var cartContent = '';
