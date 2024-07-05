@@ -138,13 +138,13 @@ function calculateChange() {
   }
 }
 
-function purchaseNow() {
+function purchaseButton() {
     let totalPrice = parseFloat(total.value.replace('₱ ', ''));
     let cashTendered = parseFloat(cash.value);
     if (cashTendered >= totalPrice) {
         alert('Thank you for your purchase');
     } else {
-        alert('kulang bayad');
+        alert('Insuficient Cash please enter the right amount');
     }
 }
 
@@ -157,4 +157,4 @@ qty6.addEventListener("keyup", addOrder);
 
 cash.addEventListener("keyup", calculateChange);
 
-document.getElementById('purchaseNow').addEventListener('click', purchaseNow);
+document.getElementById('purchaseButton').addEventListener('click', purchaseButton);
